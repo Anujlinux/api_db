@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Srctypes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @srctypes.each do |srctype| %>
+      <tr>
+        <td><%= srctype.name %></td>
+        <td><%= link_to 'Show', srctype %></td>
+        <td><%= link_to 'Edit', edit_srctype_path(srctype) %></td>
+        <td><%= link_to 'Destroy', srctype, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Srctype', new_srctype_path %>

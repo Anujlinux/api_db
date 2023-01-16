@@ -1,0 +1,35 @@
+<%= form_with(model: api) do |form| %>
+  <% if api.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(api.errors.count, "error") %> prohibited this api from being saved:</h2>
+
+      <ul>
+        <% api.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_endpoint %>
+    <%= form.text_area :api_endpoint %>
+  </div>
+
+  <div class="field">
+    <%= form.label :api_key %>
+    <%= form.text_area :api_keys %>
+  </div>
+
+  <%= form.number_field :user_id, id: :api_user_id, class:"form-control", value: current_user.id, type: :hidden %>
+  <%= form.collection_select :srctype, Srctype.all, :id, :name %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

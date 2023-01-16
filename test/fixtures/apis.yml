@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  api_endpoint: MyText
+  api_key: MyText
+  belongs_to: 
+
+two:
+  name: MyString
+  api_endpoint: MyText
+  api_key: MyText
+  belongs_to: 

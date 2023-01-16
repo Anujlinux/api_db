@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Apis</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Api endpoint</th>
+      <th>Api key</th>
+      <th>Srctype</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @apis.each do |api| %>
+      <tr>
+        <td><%= api.name %></td>
+        <td><%= api.api_endpoint %></td>
+        <td><%= api.api_keys %></td>
+        <td><%= api.srctype.name %></td>
+        <td><%= link_to 'Show', api %></td>
+        <td><%= link_to 'Edit', edit_api_path(api) %></td>
+        <td><%= link_to 'Destroy', api, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Api', new_api_path %>
