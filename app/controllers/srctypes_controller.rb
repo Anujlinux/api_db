@@ -65,6 +65,6 @@ class SrctypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def srctype_params
-      params.require(:srctype).permit(:name)
+      params.require(:srctype).permit(:name, :interval)
     end
 end

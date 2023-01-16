@@ -1,5 +1,7 @@
 class ApisController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_api, only: %i[ show edit update destroy ]
+
 
   # GET /apis or /apis.json
   def index
@@ -8,6 +10,9 @@ class ApisController < ApplicationController
 
   # GET /apis/1 or /apis/1.json
   def show
+    job_id = FetchdataJob.perform_async(@api.api_keys, @api.api_endpoint, current_user.id)
+    p job_id
+    
   end
 
   # GET /apis/new

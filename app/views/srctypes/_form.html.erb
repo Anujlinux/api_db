@@ -16,6 +16,11 @@
     <%= form.text_area :name %>
   </div>
 
+  <div class="field">
+    <%= form.label :interval %>
+    <%= form.time_field :interval, placeholder: "HH:MM:SS" %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

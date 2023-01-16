@@ -1,0 +1,2 @@
+class Piidatum < ApplicationRecord
+end
