@@ -26,6 +26,13 @@
     <%= form.text_area :api_keys %>
   </div>
 
+  <!--code to ask selection if user wants to save the data incrementally or replace the old with new one -->
+
+  <div class="field">
+    <%= form.label :save_type %>
+    <%= form.select :save_type, options_for_select([["Replace", "replace"], ["Incremental", "incremental"]]) %>
+  </div>
+
   <%= form.number_field :user_id, id: :api_user_id, class:"form-control", value: current_user.id, type: :hidden %>
   <%= form.collection_select :srctype, Srctype.all, :id, :name %>
 

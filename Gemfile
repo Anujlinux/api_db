@@ -56,3 +56,4 @@ gem 'devise'
 gem 'sidekiq'
 gem 'httparty'
 gem 'sidekiq-cron'
+gem 'whenever', require: false

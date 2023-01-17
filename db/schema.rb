@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_16_211943) do
+ActiveRecord::Schema.define(version: 2023_01_17_154801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2023_01_16_211943) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.bigint "srctype_id", null: false
+    t.string "save_type"
     t.index ["srctype_id"], name: "index_apis_on_srctype_id"
     t.index ["user_id"], name: "index_apis_on_user_id"
   end

@@ -5,14 +5,12 @@ class ApisController < ApplicationController
 
   # GET /apis or /apis.json
   def index
-    @apis = Api.all
+    @api = Api.where(id: current_user.id)
   end
 
   # GET /apis/1 or /apis/1.json
   def show
-    job_id = FetchdataJob.perform_async(@api.api_keys, @api.api_endpoint, current_user.id)
-    p job_id
-    
+    @api = Api.where(id: current_user.id)
   end
 
   # GET /apis/new
@@ -27,13 +25,19 @@ class ApisController < ApplicationController
   # POST /apis or /apis.json
   def create
     @api = Api.new(api_params)
-    
-    respond_to do |format|
-      if @api.save
-        format.html { redirect_to api_url(@api), notice: "Api was successfully created." }
-        format.json { render :show, status: :created, location: @api }
-      else
-        format.html { render :new, status: :unprocessable_entity }
+    if @api.save_type == "Incremental" || @api.save_type == "Replace"
+      respond_to do |format|
+        if @api.save
+          format.html { redirect_to api_url(@api), notice: "Api was successfully created." }
+          format.json { render :show, status: :created, location: @api }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @api.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to apis_url, notice: "Please select a valid save type." }
         format.json { render json: @api.errors, status: :unprocessable_entity }
       end
     end
@@ -70,6 +74,6 @@ class ApisController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def api_params
-      params.require(:api).permit(:name, :api_endpoint, :api_keys, :user_id, :srctype).merge(srctype: Srctype.find_by(id: params[:api][:srctype]))
+      params.require(:api).permit(:name, :api_endpoint, :api_keys, :user_id, :srctype, :save_type).merge(srctype: Srctype.find_by(id: params[:api][:srctype]))
     end
 end

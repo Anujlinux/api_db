@@ -6,13 +6,23 @@ class FetchdataJob
   sidekiq_options retry: false
 
   def perform(key, endpoint, srctype, tenant_id)
+
+    #check if the run on the api was sooner than interval time
+    
+
+
+
+
+
+
     url = URI(endpoint)
     headers = {'Content-type': 'application/json', 'Authorization': "Bearer #{key}"}
     response = HTTParty.get(url, headers)
     p response.body[0..100]
     p "fetch data completed"
-    table_data = response.map {|row| row.values_at("schema_name", "table_name", "column_name", "pii_type", "amount")}
-        p table_data
-    validation = ValidateJob.perform_async(srctype, tenant_id, table_data)
+    class_name = "#{srctype.capitalize}DataSourceConfig"
+    klass = class_name.constantize
+    klass.convert_and_add(response, tenant_id)
+    #PiiConfig.convert_and_add(response, tenant_id)
   end
 end
